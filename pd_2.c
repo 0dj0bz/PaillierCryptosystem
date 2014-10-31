@@ -108,8 +108,8 @@ int main (int argc, char **argv)
 	long long n, nsqr;
 	long long c, c2, c3; //ciphertext
 	long long mu;
-	long long m1, m2;
-	long long r1, r2;
+	long long m1, m2, cm1;
+	long long r1, r2, cr1;
 	long long g = 5652;
 	long long gm2;
 	long long em1_gm2;
@@ -121,7 +121,9 @@ int main (int argc, char **argv)
 	n = p*q;
 	nsqr = n*n;
 	m1 = atol(argv[1]);
+	cm1 = (long long) m1;
 	r1 = atol(argv[2]);
+	cr1 = (long long) r1;
 
 	m2 = 15;
 	r2 = 61;
@@ -166,13 +168,13 @@ int main (int argc, char **argv)
 	long long L_glam = L( u2, n);
 	mu = modInv(L_glam, 77);
 
-	printf ("L(ylam): [%lld] \n", L_ylam);
-	printf ("L(glam): [%lld] \n", L_glam);
+	printf ("L(modExp(em1_gm2, lambda, nsqr)): [%lld] \n", L_ylam);
+	printf ("L(modExp(g, lambda, nsqr)): [%lld] \n", L_glam);
 	printf ("MU:  %lld \n", mu );
 
 	printf ("Decrypted message from other party:  %lld \n", (L_ylam * mu)%77);
 	printf ("Original message sent:               %lld \n", m1);
-	printf ("New message - original message: [%lld]\n", ((L_ylam * mu)%77)-m1);
+	printf ("New message - original message: [%lld]\n", ((L_ylam * mu)%77)-cm1);
 	//long long 
 	//printf ("DK:")
 
